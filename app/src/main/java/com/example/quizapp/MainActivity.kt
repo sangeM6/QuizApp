@@ -26,10 +26,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.ui.unit.sp
 import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.Alignment
 import androidx.compose.foundation.layout.Row
-
+import androidx.compose.foundation.background
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Brush
 
 
 class MainActivity : ComponentActivity() {
@@ -69,7 +72,7 @@ fun HomePage() {
 
     if (!startQuiz){
         Column(
-            modifier = Modifier.fillMaxSize().statusBarsPadding().padding(16.dp),
+            modifier = Modifier.fillMaxSize().background(Brush.verticalGradient(colors = listOf(Color(0xFFE3F2FD),Color(0xFFBBDEFB)))).statusBarsPadding().padding(16.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ){
@@ -113,11 +116,77 @@ fun QuizApp() {
     var showResults by remember { mutableStateOf(false) }
     var reviewMode by remember { mutableStateOf(false) }
 
-    if (showResults) {
+    if (reviewMode) {
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            Color(0xFFE3F2FD),
+                            Color(0xFFBBDEFB)
+                        )
+                    )
+                ).verticalScroll(rememberScrollState())
+                .padding(20.dp)
+        ) {
+            Spacer(modifier = Modifier.padding(20.dp))
+            Text(
+                text = "Review Answers",
+                fontSize = 24.sp
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            questions.forEach { q ->
+
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    shape = RoundedCornerShape(16.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+                ) {
+
+                    Column(modifier = Modifier.padding(16.dp)) {
+
+                        // QUESTION
+                        Text(
+                            text = q.text,
+                            fontSize = 16.sp
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        // CORRECT ANSWER
+                        Text(
+                            text = "Correct Answer: ${if (q.answer) "True" else "Myth"}",
+                            fontSize = 14.sp
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Button(
+                onClick = {
+                    reviewMode = false
+                    showResults = true
+                }
+            ) {
+                Text("Back")
+            }
+        }
+
+    }
+
+    else if (showResults) {
 
         //RESULT SCREEN
         Column(
-            Modifier.fillMaxSize().padding(20.dp),
+            Modifier.fillMaxSize().background(Brush.verticalGradient(colors = listOf(Color(0xFFE3F2FD),Color(0xFFBBDEFB)))).padding(20.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
 
@@ -141,11 +210,9 @@ fun QuizApp() {
                 horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
 
             ) {
+                //REVIEW BUTTON
                 Button(
                     onClick = {
-                        index = 0
-                        answered = false
-                        feedback = ""
                         showResults = false
                         reviewMode = true
                     }
@@ -172,7 +239,7 @@ fun QuizApp() {
         val current = questions[index]
 
         Column(
-            modifier = Modifier.fillMaxSize().padding(20.dp),
+            modifier = Modifier.fillMaxSize().background(Brush.verticalGradient(colors = listOf(Color(0xFFE3F2FD),Color(0xFFBBDEFB)))).padding(20.dp),
             verticalArrangement = Arrangement.Center
         ) {
             Card(
@@ -197,7 +264,7 @@ fun QuizApp() {
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
+                horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
                 //TRUE BUTTON
             ) {
                 Button(
@@ -235,7 +302,7 @@ fun QuizApp() {
                     Text("Myth")
                 }
             }
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(15.dp))
 
             //FEEDBACK
 
@@ -244,7 +311,7 @@ fun QuizApp() {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(text = feedback)
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 //NEXT BUTTON
                 Button(
                     onClick = {
