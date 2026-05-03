@@ -19,8 +19,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.material3.Button
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CardDefaults
 import androidx.compose.ui.unit.sp
+import androidx.compose.material3.Card
+import androidx.compose.ui.Alignment
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +37,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             QuizAppTheme {
-                    QuizApp()
+                   HomePage()
                 }
             }
         }
@@ -53,6 +59,47 @@ val questions = listOf(
     Question("Placing a spoon in a bottle of champagne keeps it fizzy",false),
     Question("Drinking water helps improves concentration",true)
 )
+@Composable
+fun HomePage() {
+    var startQuiz by remember { mutableStateOf(false) }
+
+    if (!startQuiz){
+        Column(
+            modifier = Modifier.fillMaxSize().statusBarsPadding().padding(16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
+            Text(
+            text = "Life Hack or Myth?"
+
+        )
+            Spacer(modifier = Modifier.height(16.dp))
+            Card(
+                modifier = Modifier.fillMaxWidth(1f),
+                shape = RoundedCornerShape(20.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+            ){
+                Column(modifier = Modifier.padding(20.dp)) {
+                    Text(
+                        text ="Life hacks and internet rumours are everywhere. Users often struggle to distinguish between genuine productivity tips and urban myths that have gone viral." +
+                                "This app provides a 'Life Hack or Urban Myth?' flashcard game to help users test their common sense and learn useful (and safe) real-world shortcuts."
+
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Button(
+                onClick = { startQuiz = true},
+                shape = RoundedCornerShape(12.dp)
+            ){
+                Text("Start Quiz")
+            }
+        }
+    } else {
+        QuizApp()
+    }
+}
 @Composable
 fun QuizApp() {
     var index by remember { mutableStateOf(0) }
