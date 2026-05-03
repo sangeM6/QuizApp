@@ -26,7 +26,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.ui.unit.sp
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Alignment
+import androidx.compose.foundation.layout.Row
+
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -107,19 +111,62 @@ fun QuizApp() {
     var feedback by remember { mutableStateOf("") }
     var answered by remember { mutableStateOf(false) }
     var showResults by remember { mutableStateOf(false) }
+    var reviewMode by remember { mutableStateOf(false) }
 
     if (showResults) {
 
         //RESULT SCREEN
         Column(
             Modifier.fillMaxSize().padding(20.dp),
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+
 
         ){
             Text(
                 text = "Final Score: $score / ${questions.size}",
                 fontSize =24.sp
             )
+            Spacer(modifier = Modifier.height(20.dp))
+
+            if (score >= 8) {
+                Text("Great Job! 👏")
+            }else{
+               Text("Try Harder 🙂")
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
+
+            ) {
+                Button(
+                    onClick = {
+                        index = 0
+                        answered = false
+                        feedback = ""
+                        showResults = false
+                        reviewMode = true
+                    }
+                ) {
+                    Text("Review Questions")
+                }
+
+                Button(
+                    onClick = {
+                        index = 0
+                        score = 0
+                        feedback = ""
+                        answered = false
+                        showResults = false
+                        reviewMode = false
+                    }
+                ) {
+                    Text("Retry")
+                }
+            }
+
         }
     } else {
         val current = questions[index]
@@ -127,69 +174,94 @@ fun QuizApp() {
         Column(
             modifier = Modifier.fillMaxSize().padding(20.dp),
             verticalArrangement = Arrangement.Center
-        ){
-            //QUESTION
-            Text(text = current.text, fontSize =20.sp)
+        ) {
+            Card(
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                shape = RoundedCornerShape(16.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+            ){
+                Column(
+                    modifier = Modifier.padding(20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ){
+                    //QUESTION
+
+                    Text(text = current.text, fontSize = 20.sp)
+                    Spacer(modifier = Modifier.height(20.dp))
+                }
+
+            }
+
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            //TRUE BUTTON
-            Button(
-                onClick = {
-                    if (!answered){
-                        answered = true
-                        if (current.answer){
-                            score++
-                            feedback = "Correct!"
-                        }else{
-                            feedback = "Wrong!"
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+                //TRUE BUTTON
+            ) {
+                Button(
+                    onClick = {
+                        if (!answered) {
+                            answered = true
+                            if (current.answer) {
+                                score++
+                                feedback = "Correct!"
+                            } else {
+                                feedback = "Wrong!"
+                            }
                         }
-                    }
-                },
-                enabled = !answered
-            ){
-                Text("True")
-            }
-            Spacer(modifier =Modifier.height(10.dp))
+                    },
+                    enabled = !answered
+                ) {
+                    Text("True")
+                }
 
-            //FALSE BUTTON
-            Button(
-                onClick = {
-                    if(!answered) {
-                        answered =true
-                        if (!current.answer) {
-                            score++
-                            feedback = "Correct!"
-                        } else {
-                            feedback = "Wrong!"
+                //FALSE BUTTON
+                Button(
+                    onClick = {
+                        if (!answered) {
+                            answered = true
+                            if (!current.answer) {
+                                score++
+                                feedback = "Correct!"
+                            } else {
+                                feedback = "Wrong!"
+                            }
                         }
-                    }
-                },
-                enabled = !answered
-            ){
-                Text("Myth")
+                    },
+                    enabled = !answered
+                ) {
+                    Text("Myth")
+                }
             }
             Spacer(modifier = Modifier.height(20.dp))
+
             //FEEDBACK
-            Text(text = feedback)
-            Spacer(modifier = Modifier.height(20.dp))
-            //NEXT BUTTON
 
-            Button(
-                onClick = {
-                    if(answered) {
-                        if(index < questions.size -1){
-                            index++
-                            feedback =""
-                            answered = false
-                        } else {
-                            showResults = true
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = feedback)
+                Spacer(modifier = Modifier.height(20.dp))
+                //NEXT BUTTON
+                Button(
+                    onClick = {
+                        if (answered) {
+                            if (index < questions.size - 1) {
+                                index++
+                                feedback = ""
+                                answered = false
+                            } else {
+                                showResults = true
+                            }
                         }
-                    }
-                },
-                enabled = answered
-            ){
-                Text("Next")
+                    },
+                    enabled = answered
+                ) {
+                    Text("Next")
+                }
             }
         }
     }
