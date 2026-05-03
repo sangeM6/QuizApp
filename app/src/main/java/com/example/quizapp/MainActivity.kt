@@ -33,6 +33,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.background
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.text.style.TextAlign
 
 
 class MainActivity : ComponentActivity() {
@@ -238,10 +239,20 @@ fun QuizApp() {
     } else {
         val current = questions[index]
 
+
         Column(
             modifier = Modifier.fillMaxSize().background(Brush.verticalGradient(colors = listOf(Color(0xFFE3F2FD),Color(0xFFBBDEFB)))).padding(20.dp),
             verticalArrangement = Arrangement.Center
         ) {
+            Text(
+                text = "${index + 1} of ${questions.size}",
+                fontSize = 18.sp,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
             Card(
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 shape = RoundedCornerShape(16.dp),
