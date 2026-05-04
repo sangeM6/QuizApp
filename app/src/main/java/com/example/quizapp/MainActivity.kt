@@ -34,6 +34,8 @@ import androidx.compose.foundation.background
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.style.TextAlign
+import android.util.Log
+
 
 
 class MainActivity : ComponentActivity() {
@@ -64,6 +66,7 @@ val questions = listOf(
     Question("Placing a spoon in a bottle of champagne keeps it fizzy",false),
     Question("Drinking water helps improves concentration",true)
 )
+
 @Composable
 fun HomePage() {
     var startQuiz by remember { mutableStateOf(false) }
@@ -95,7 +98,9 @@ fun HomePage() {
             Spacer(modifier = Modifier.height(24.dp))
 
             Button(
-                onClick = { startQuiz = true},
+                onClick = {
+                    Log.d("Quiz App","Quiz started from Homepage")
+                    startQuiz = true},
                 shape = RoundedCornerShape(12.dp)
             ){
                 Text("Start Quiz")
@@ -107,6 +112,7 @@ fun HomePage() {
 }
 @Composable
 fun QuizApp() {
+    Log.d("Quiz App", "Quiz screen opened")
     var index by remember { mutableStateOf(0) }
     var score by remember { mutableStateOf(0) }
     var feedback by remember { mutableStateOf("") }
@@ -115,6 +121,7 @@ fun QuizApp() {
     var reviewMode by remember { mutableStateOf(false) }
 
     if (reviewMode) {
+        Log.d("Quiz App", " Review mode active")
 
         Column(
             modifier = Modifier
@@ -168,6 +175,7 @@ fun QuizApp() {
 
             Spacer(modifier = Modifier.height(20.dp))
 
+            //BACK BUTTON
             Button(
                 onClick = {
                     reviewMode = false
@@ -211,6 +219,7 @@ fun QuizApp() {
                 //REVIEW BUTTON
                 Button(
                     onClick = {
+                        Log.d("Quiz App", " Entered review screen")
                         showResults = false
                         reviewMode = true
                     }
@@ -218,8 +227,10 @@ fun QuizApp() {
                     Text("Review Questions")
                 }
 
+                //RETRY BUTTON
                 Button(
                     onClick = {
+                        Log.d("Quiz App"," Quiz Restarted")
                         index = 0
                         score = 0
                         feedback = ""
@@ -279,11 +290,16 @@ fun QuizApp() {
                     onClick = {
                         if (!answered) {
                             answered = true
+
+                            Log.d("Quiz App"," User selected TRUE on question $index")
+
                             if (current.answer) {
                                 score++
                                 feedback ="Life Hack!"
+                                Log.d("Quiz App"," Correct answer | Score: $score")
                             } else {
                                 feedback = "Urban Myth!"
+                                Log.d("Quiz App", " Wrong answer | Score: $score")
                             }
                         }
                     },
@@ -297,11 +313,16 @@ fun QuizApp() {
                     onClick = {
                         if (!answered) {
                             answered = true
+
+                            Log.d("Quiz App", " User selected FALSE on question $index")
+
                             if (!current.answer) {
                                 score++
                                 feedback = "Life Hack!"
+                                Log.d("Quiz App", " Correct answer | Score: $score")
                             } else {
                                 feedback = "Urban Myth!"
+                                Log.d("Quiz App", " Wrong answer | Score: $score")
                             }
                         }
                     },
@@ -313,23 +334,26 @@ fun QuizApp() {
             Spacer(modifier = Modifier.height(15.dp))
 
             //FEEDBACK
-
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(text = feedback)
+
                 Spacer(modifier = Modifier.height(16.dp))
+
                 //NEXT BUTTON
                 Button(
                     onClick = {
                         if (answered) {
+                            Log.d("Quiz App", " Next clicked | Question: $index | Score: $score")
                             if (index < questions.size - 1) {
                                 index++
                                 feedback = ""
                                 answered = false
                             } else {
                                 showResults = true
+                                Log.d("Quiz App", " Quiz completed | Final Score: $score")
                             }
                         }
                     },
