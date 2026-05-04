@@ -45,17 +45,18 @@ while using the app. Provides a quick feedback when the true or false button is 
   [Watch App Video](https://youtu.be/YP1flvIj7rg)
 
   ## GitHub Usage
-  GitHub was used to stroe and save the project online and track changes made. Commits were also made to save progress and for someone veiwing 
+  GitHub was used to store and save the project online and track changes made. Commits were also made to save progress and for someone veiwing 
   the code to see changes made or added information and also not get confused.
 
   ## GitHub Actions
   GitHub Actions were used to check for failures, successes or errors of the code. Created a workflow to run when code is pushed, helping to check if the project buid successfully.
 
   ## To Run The Application
-  ° Open the project in Android Studio
-  ° Run the app on the emulator or Android device
+  * Open the project in Android Studio
+  * Run the app on the emulator or Android device
 
   ## Author
   ZUSANGE MBALEKI
 
   ## References
+Android Developers, 2025. *Create a button* [online]. Available at: https://developer.android.com/develop/ui/compose/quick-guides/content/create-button (Accessed on: 28 April 2026).
