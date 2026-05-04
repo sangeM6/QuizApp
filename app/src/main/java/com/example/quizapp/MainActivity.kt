@@ -284,8 +284,9 @@ fun QuizApp() {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
-                //TRUE BUTTON
+
             ) {
+                //TRUE BUTTON
                 Button(
                     onClick = {
                         if (!answered) {
