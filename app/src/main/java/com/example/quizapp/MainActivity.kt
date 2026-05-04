@@ -40,9 +40,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
-
-
         setContent {
             QuizAppTheme {
                    HomePage()
@@ -162,7 +159,7 @@ fun QuizApp() {
 
                         // CORRECT ANSWER
                         Text(
-                            text = "Correct Answer: ${if (q.answer) "True" else "Myth"}",
+                            text = "Correct Answer: ${if (q.answer) "Life Hack" else "Urban Myth"}",
                             fontSize = 14.sp
                         )
                     }
@@ -284,9 +281,9 @@ fun QuizApp() {
                             answered = true
                             if (current.answer) {
                                 score++
-                                feedback = "Correct!"
+                                feedback ="Life Hack!"
                             } else {
-                                feedback = "Wrong!"
+                                feedback = "Urban Myth!"
                             }
                         }
                     },
@@ -302,15 +299,15 @@ fun QuizApp() {
                             answered = true
                             if (!current.answer) {
                                 score++
-                                feedback = "Correct!"
+                                feedback = "Life Hack!"
                             } else {
-                                feedback = "Wrong!"
+                                feedback = "Urban Myth!"
                             }
                         }
                     },
                     enabled = !answered
                 ) {
-                    Text("Myth")
+                    Text("False")
                 }
             }
             Spacer(modifier = Modifier.height(15.dp))
