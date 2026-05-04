@@ -60,3 +60,7 @@ while using the app. Provides a quick feedback when the true or false button is 
 
   ## References
 Android Developers, 2025. *Create a button* [online]. Available at: https://developer.android.com/develop/ui/compose/quick-guides/content/create-button (Accessed on: 28 April 2026).
+Android Developers, 2025. *State and Jetpack Compose* [online]. Available at: https://developer.android.com/develop/ui/compose/state (Accessed on: 28 April 2026).
+Android Developers, 2025. *Card* [online]. Available at: https://developer.android.com/develop/ui/compose/components/card (Accessed on: 30 April 2026).
+Android Developers, 2025. *Brush: Gradients and Shaders* [online]. Available at: https://developer.android.com/develop/ui/compose/graphics/draw/brush (Accessed on: 30 April 2026).
+Kaval G., 2022. *Jetpack Compose Theming: Colors* [online]. Available at: https://medium.com/better-programming/jetpack-compose-theming-colors-1cf86754d5b9 (Accessed on: 30 April 2026).
