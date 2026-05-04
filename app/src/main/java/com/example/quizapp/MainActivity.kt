@@ -320,10 +320,10 @@ fun QuizApp() {
 
                             if (!current.answer) {
                                 score++
-                                feedback = "Life Hack!"
+                                feedback = "Urban Myth!"
                                 Log.d("Quiz App", " Correct answer | Score: $score")
                             } else {
-                                feedback = "Urban Myth!"
+                                feedback = "Life Hack!"
                                 Log.d("Quiz App", " Wrong answer | Score: $score")
                             }
                         }
