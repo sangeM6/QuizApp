@@ -41,8 +41,8 @@ while using the app. Provides a quick feedback when the true or false button is 
   ![Quiz Questions](drawable/quizquestions.png)
   ![Quiz Feedback](drawable/quizfeedback.png)
 
-  #video
+  ## video
   [Watch App Video](https://youtu.be/YP1flvIj7rg)
 
-  ##GitHub Usage
+  ## GitHub Usage
   
